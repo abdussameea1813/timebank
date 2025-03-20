@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:9000/api'; // Corrected API_URL
+const API_URL = '/api/review'; // Relative URL
 
 const createReview = async (transactionId: string, rating: number, comment: string, token: string) => {
-    const response = await axios.post(`${API_URL}/review`, { transactionId, rating, comment }, {
+    const response = await axios.post(API_URL, { transactionId, rating, comment }, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -12,7 +12,7 @@ const createReview = async (transactionId: string, rating: number, comment: stri
 };
 
 const getReviewsByUser = async (userId: string, token: string) => {
-    const response = await axios.get(`${API_URL}/review/user/${userId}`, {
+    const response = await axios.get(`${API_URL}/user/${userId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -21,7 +21,7 @@ const getReviewsByUser = async (userId: string, token: string) => {
 };
 
 const getReviewsForUser = async (userId: string, token: string) => {
-    const response = await axios.get(`${API_URL}/review/forUser/${userId}`, {
+    const response = await axios.get(`${API_URL}/forUser/${userId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -30,7 +30,7 @@ const getReviewsForUser = async (userId: string, token: string) => {
 };
 
 const getReviewsByTransaction = async (transactionId: string, token: string) => {
-    const response = await axios.get(`${API_URL}/review/transaction/${transactionId}`, {
+    const response = await axios.get(`${API_URL}/transaction/${transactionId}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
