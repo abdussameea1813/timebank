@@ -114,14 +114,15 @@ const __dirname = dirname(__filename);
 
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
-    // Correct the path to the dist folder based on the actual location
-    app.use(express.static(path.join(__dirname, '..', 'timebank-frontend', 'dist')));
+    const frontendDistPath = path.join(__dirname, '..', 'timebank-frontend', 'dist');
+    console.log("Serving frontend from:", frontendDistPath);
+    app.use(express.static(frontendDistPath));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, '..', 'timebank-frontend', 'dist', 'index.html'));
+        res.sendFile(path.resolve(frontendDistPath, 'index.html'));
     });
-    
 }
+
 
 const PORT = process.env.PORT || 9000;
 
