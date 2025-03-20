@@ -21,13 +21,15 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+        origin: 'http://localhost:5173',
         methods: ['GET', 'POST']
     }
 });
 
+const allowedOrigins = [process.env.FRONTEND_URL, 'http://localhost:5173'];
+
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
@@ -114,10 +116,11 @@ const __dirname = dirname(__filename);
 if (process.env.NODE_ENV === 'production') {
     // Correct the path to the dist folder based on the actual location
     app.use(express.static(path.join(__dirname, '..', 'timebank-frontend', 'dist')));
-    
+
     app.get('*', (req, res) => {
         res.sendFile(path.resolve(__dirname, '..', 'timebank-frontend', 'dist', 'index.html'));
     });
+    
 }
 
 const PORT = process.env.PORT || 9000;
